@@ -1,0 +1,206 @@
+body {
+            margin: 0;
+            padding: 0;
+            font-family: verdana;
+            background-color: grey;
+        }
+
+        .header {
+            padding: 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            max-width: 1200px;
+            margin: 0 auto;
+            align-items: center;
+        }
+
+        .ul1 {
+            display: flex;
+            list-style: none;
+            gap: 4rem;
+            margin: 0;
+            margin-right: 30px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            font-weight: 300;
+            font-size: 14px;
+            color: white;
+        }
+
+        a {
+            text-decoration: none;
+            color: white;
+        }
+
+        a:hover {
+            color: blue;
+        }
+
+        .logo {
+            margin-left: 60px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+            font-family: verdana;
+            color: white;
+        }
+
+        .banner {
+            background-size: cover;
+            background-position: center;
+            height: 100%;
+            width: 100%;
+            position: absolute;
+            top: 0;
+            z-index: -1;
+            overflow: hidden;
+            transition: background-position 1s ease;
+        }
+
+        /* Fading effect using ::before */
+        .banner::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background-size: cover;
+            background-position: center;
+            opacity: 0;
+            transition: opacity 1s ease;
+            z-index: -1;
+        }
+
+        .banner.fade::before {
+            background-image: var(--fade-image);
+            opacity: 1;
+        }
+
+        /* Custom transition effects */
+        .banner.transition-zoom {
+            transform: scale(1.05);
+            transition: transform 1s ease;
+        }
+
+        .banner.transition-blur::before {
+            filter: blur(5px);
+            transition: filter 1s ease;
+        }
+
+        .banner.transition-slide {
+            background-position: right center;
+            transition: background-position 1s ease;
+        }
+
+        .banner .glass-wrapper {
+            position: absolute;
+            width: 30%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            backdrop-filter: blur(1.5px);
+            -webkit-backdrop-filter: blur(1.5px);
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+        }
+
+        .title-container.fade-out .title {
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .title-container .title {
+            transition: opacity 0.5s ease;
+        }
+
+        .title {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding-top: 5rem;
+        }
+
+        .title .discover {
+            font-size: 30px;
+        }
+
+        .title p {
+            font-size: 47px;
+            font-weight: 800;
+            text-transform: uppercase;
+            line-height: 40px;
+            color: white;
+            margin: 0;
+            margin-left: 5%;
+        }
+
+        .title .details {
+            width: 60%;
+            padding-top: 2rem;
+            color: white;
+            font-weight: 200;
+            letter-spacing: 1.5px;
+            padding-bottom: 1.5rem;
+            margin-left: 5%;
+        }
+
+        .title .explore button {
+            background: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            backdrop-filter: blur(3px);
+            -webkit-backdrop-filter: blur(3px);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            color: white;
+            padding: 12px 50px;
+            border-radius: 50px;
+            letter-spacing: 1.5px;
+            margin-left: 5%;
+        }
+
+        button {
+            transition: 0.2s ease-in-out;
+        }
+
+        button:hover {
+            transform: scale(1.1);
+        }
+
+        .drawings {
+            bottom: 7px;
+            position: absolute;
+            left: 25rem;
+        }
+
+        .drawings ul {
+            display: flex;
+            gap: 8px;
+            list-style: none;
+            width: 65vw;
+            height: 15rem;
+            align-items: center;
+        }
+
+        .drawings .thumbnail {
+            display: flex;
+            height: 10rem;
+            width: 18rem;
+            background-size: cover !important;
+            border-radius: 8px;
+            flex-direction: column;
+        }
+
+        .drawings .drawname {
+            padding: 1px 0;
+            font-size: 19px;
+            font-weight: 600;
+            color: white;
+        }
+
+        .drawname {
+            margin-top: 134px;
+            margin-left: 10px;
+            background: rgba(255, 255, 255, 0);
+            backdrop-filter: blur(1.5px);
+            -webkit-backdrop-filter: blur(1.5px);
+        }
+
+        .drawings .active {
+            margin-top: -5rem;
+        }

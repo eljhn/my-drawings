@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="icon" href="imgportrait/iconimg.jpg"/>
+    <link rel="stylesheet" href="style.css">
+    <title>Ejsketch</title>
+</head>
+
+<body>
+    <div>
+        <div class="header">
+            <div class="logo">EJSKETCH</div>
+            <ul class="ul1" data-aos="fade-down" data-aos-delay="600" data-aos-duration="700">
+                <a href="#"><li>More</li></a>
+                <a href="#"><li>About</li></a>
+                <a href="#"><li>Contact</li></a>
+            </ul>
+        </div>
+
+        <div class="banner" style="background-image: url('imgportrait/bgpic.jpg');">
+            <div class="glass-wrapper" data-aos="fade-right" data-aos-delay="100" data-aos-duration="200"></div>
+        </div>
+
+        <div class="title-container">
+            <div class="title">
+                <p class="discover" data-aos="fade-left" data-aos-delay="300" data-aos-duration="600">Discover</p>
+                <p class="Ejname" data-aos="fade-left" data-aos-delay="400" data-aos-duration="700">Eljohn art</p>
+                <div class="details" data-aos="fade-left" data-aos-delay="500" data-aos-duration="800">
+                    This artist thrives in the sketching stage—where creativity flows freely, and every line has movement and intent.
+                </div>
+                <div class="explore" data-aos="fade-left" data-aos-delay="600" data-aos-duration="900">
+                    <a href="explore.html"><button>Explore</button></a>
+                </div>
+            </div>
+        </div>
+
+        <div class="drawings">
+            <ul class="drawlist">
+                <li class="active" data-img="imgportrait/harrypotter.jpg" data-aos="zoom-in-up">
+                    <div class="thumbnail" style="background: url('imgportrait/draw3.jpg');">
+                        <div class="draw1details">
+                            <p class="drawname">Harry Potter</p>
+                        </div>
+                    </div>
+                </li>
+                <li data-img="imgportrait/scarlet.jpg" data-aos="zoom-in-up">
+                    <div class="thumbnail" style="background: url('imgportrait/draw2.jpg');">
+                        <div class="draw1details">
+                            <p class="drawname">Scarlet Witch</p>
+                        </div>
+                    </div>
+                </li>
+                <li data-img="imgportrait/caradev.jpg" data-aos="zoom-in-up">
+                    <div class="thumbnail" style="background: url('imgportrait/draw1.jpg');">
+                        <div class="draw1details">
+                            <p class="drawname">Cara Delevingne</p>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init();
+
+        const draws = document.querySelectorAll('.drawlist li');
+        const banner = document.querySelector(".banner");
+        const titleContainer = document.querySelector(".title-container");
+
+        const transitions = ["transition-zoom", "transition-blur", "transition-slide"];
+
+        draws.forEach(draw => {
+            draw.addEventListener("mouseenter", (event) => {
+                draws.forEach(el => el.classList.remove("active"));
+                event.currentTarget.classList.add("active");
+
+                const newImage = event.currentTarget.getAttribute('data-img');
+
+                // Remove all previous transition classes
+                banner.classList.remove("fade", ...transitions);
+                titleContainer.classList.add('fade-out');
+
+                // Apply random transition
+                const transition = transitions[Math.floor(Math.random() * transitions.length)];
+                banner.classList.add("fade", transition);
+                banner.style.setProperty('--fade-image', `url('${newImage}')`);
+
+                setTimeout(() => {
+                    banner.style.backgroundImage = `url('${newImage}')`;
+                    banner.classList.remove("fade");
+                }, 1000);
+            });
+
+            draw.addEventListener("mouseleave", () => {
+                banner.classList.remove(...transitions);
+                titleContainer.classList.remove('fade-out');
+            });
+        });
+    </script>
+</body>
+</html>

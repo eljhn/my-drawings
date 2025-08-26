@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <link rel="icon" href="imgportrait/iconimg.jpg"/>
+  <link rel="stylesheet" href="style.css">
+  <title>Ejsketch - Explore</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background-color: grey;
+    }
+
+    .draw-container {
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: grey;
+      border-bottom: 1px solid #ccc;
+    }
+
+    .draw {
+      text-align: center;
+    }
+
+    img {
+      width: 400px;
+      height: auto;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      transition: transform 0.3s ease;
+    }
+
+    img:hover {
+      transform: scale(1.5);
+    }
+
+    .body {
+      margin: 0;
+      padding: 0;
+      font-family: verdana;
+      background-color: grey;
+    }
+
+    .header {
+      padding: 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      max-width: 1200px;
+      margin: 0 auto;
+      align-items: center;
+    }
+
+    .ul1 {
+      display: flex;
+      list-style: none;
+      gap: 4rem;
+      margin: 0;
+      margin-right: 30px;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      font-weight: 300;
+      font-size: 14px;
+      color: white;
+    }
+
+    a {
+      text-decoration: none;
+      color: white;
+    }
+
+    a:hover {
+      color: blue;
+    }
+
+    .logo {
+      margin-left: 60px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-weight: 600;
+      font-family: verdana;
+      color: white;
+    }
+
+    .banner {
+      background-size: cover;
+      background-position: center;
+      height: 100%;
+      width: 100%;
+      position: absolute;
+      top: 0;
+      z-index: -1;
+      overflow: hidden;
+      transition: background-position 1s ease;
+    }
+
+    .banner::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center;
+      opacity: 0;
+      transition: opacity 1s ease;
+      z-index: -1;
+    }
+
+    .banner.fade::before {
+      background-image: var(--fade-image);
+      opacity: 1;
+    }
+
+    .banner.transition-zoom {
+      transform: scale(1.05);
+      transition: transform 1s ease;
+    }
+
+    .banner.transition-blur::before {
+      filter: blur(5px);
+      transition: filter 1s ease;
+    }
+
+    .banner.transition-slide {
+      background-position: right center;
+      transition: background-position 1s ease;
+    }
+
+    .banner .glass-wrapper {
+      position: absolute;
+      width: 30%;
+      height: 100%;
+      background: rgba(255, 255, 255, 0.15);
+      box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+      backdrop-filter: blur(1.5px);
+      -webkit-backdrop-filter: blur(1.5px);
+      border-radius: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+    }
+
+    .title-container.fade-out .title {
+      opacity: 0;
+      transition: opacity 0.5s ease;
+    }
+
+    .title-container .title {
+      transition: opacity 0.5s ease;
+    }
+
+    .title {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding-top: 5rem;
+    }
+
+    .title .discover {
+      font-size: 30px;
+    }
+
+    .title p {
+      font-size: 47px;
+      font-weight: 800;
+      text-transform: uppercase;
+      line-height: 40px;
+      color: white;
+      margin: 0;
+      margin-left: 5%;
+    }
+
+    .title .details {
+      width: 60%;
+      padding-top: 2rem;
+      color: white;
+      font-weight: 200;
+      letter-spacing: 1.5px;
+      padding-bottom: 1.5rem;
+      margin-left: 5%;
+    }
+
+    .title .explore button {
+      background: rgba(255, 255, 255, 0.2);
+      box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+      backdrop-filter: blur(3px);
+      -webkit-backdrop-filter: blur(3px);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      color: white;
+      padding: 12px 50px;
+      border-radius: 50px;
+      letter-spacing: 1.5px;
+      margin-left: 5%;
+    }
+
+    button {
+      transition: 0.2s ease-in-out;
+    }
+
+    button:hover {
+      transform: scale(1.1);
+    }
+
+    .drawings {
+      bottom: 7px;
+      position: absolute;
+      left: 25rem;
+    }
+
+    .drawings ul {
+      display: flex;
+      gap: 8px;
+      list-style: none;
+      width: 65vw;
+      height: 15rem;
+      align-items: center;
+    }
+
+    .drawings .thumbnail {
+      display: flex;
+      height: 10rem;
+      width: 18rem;
+      background-size: cover !important;
+      border-radius: 8px;
+      flex-direction: column;
+    }
+
+    .drawings .drawname {
+      padding: 1px 0;
+      font-size: 19px;
+      font-weight: 600;
+      color: white;
+    }
+
+    .drawname {
+      margin-top: 134px;
+      margin-left: 10px;
+      background: rgba(255, 255, 255, 0);
+      backdrop-filter: blur(1.5px);
+      -webkit-backdrop-filter: blur(1.5px);
+    }
+
+    .drawings .active {
+      margin-top: -5rem;
+    }
+
+    /* New button styles */
+    .switch-button {
+      background: rgba(255, 255, 255, 0.3);
+      box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+      backdrop-filter: blur(3px);
+      -webkit-backdrop-filter: blur(3px);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      color: white;
+      padding: 12px 50px;
+      border-radius: 50px;
+      letter-spacing: 1.5px;
+      margin-top: 20px;
+      cursor: pointer;
+      transition: transform 0.2s ease-in-out;
+    }
+
+    .switch-button:hover {
+      transform: scale(1.1);
+    }
+
+  </style>
+  
+</head>
+<body>
+
+  <!-- First Image Section -->
+  <div class="draw-container">
+    <div class="draw" data-aos="fade-down" data-aos-delay="50" data-aos-duration="700">
+      <img id="img1" src="imgportrait/d1.jpg" alt="Image 1">
+    </div>
+  </div>
+
+  <!-- Second Image Section -->
+  <div class="draw-container">
+    <div class="draw" data-aos="flip-left" data-aos-delay="50" data-aos-duration="700">
+      <img id="img2" src="imgportrait/d2.jpg" alt="Image 2">
+    </div>
+  </div>
+
+  <!-- Third Image Section -->
+  <div class="draw-container">
+    <div class="draw" data-aos="zoom-in" data-aos-delay="50" data-aos-duration="700">
+      <img id="img3" src="imgportrait/d3.jpg" alt="Image 3">
+    </div>
+  </div>
+
+  <!-- Fourth Image Section -->
+  <div class="draw-container">
+    <div class="draw" data-aos="flip-left" data-aos-easing="ease-out-cubic" data-aos-duration="800">
+      <img id="img4" src="imgportrait/d4.jpg" alt="Image 4">
+    </div>
+  </div>
+
+  <!-- Fifth Image Section -->
+  <div class="draw-container">
+    <div class="draw" data-aos="flip-up" data-aos-delay="5" data-aos-duration="700">
+      <img id="img5" src="imgportrait/d5.jpg" alt="Image 5">
+    </div>
+  </div>
+
+  <!-- Sixth Image Section -->
+  <div class="draw-container">
+    <div class="draw" data-aos="fade-up" data-aos-duration="900">
+      <img id="img6" src="imgportrait/d6.jpg" alt="Image 6">
+    </div>
+  </div>
+
+  <!-- Switch Button -->
+  <div class="switch-container">
+    <button class="switch-button" onclick="switchImages()">Switch Image</button>
+  </div>
+
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+      AOS.init();
+
+      // Array to hold the image sources for each section
+      const images = [
+        'imgportrait/d1.jpg',
+        'imgportrait/d2.jpg',
+        'imgportrait/d3.jpg',
+        'imgportrait/d4.jpg',
+        'imgportrait/d5.jpg',
+        'imgportrait/d6.jpg'
+      ];
+
+      let currentIndex = 0;
+
+      // Function to switch the images in all sections
+      function switchImages() {
+        currentIndex = (currentIndex + 1) % images.length;  // Loop back to the first image after the last one
+
+        // Update each image's source
+        document.getElementById('img1').src = images[currentIndex];
+        document.getElementById('img2').src = images[(currentIndex + 1) % images.length];
+        document.getElementById('img3').src = images[(currentIndex + 2) % images.length];
+        document.getElementById('img4').src = images[(currentIndex + 3) % images.length];
+        document.getElementById('img5').src = images[(currentIndex + 4) % images.length];
+        document.getElementById('img6').src = images[(currentIndex + 5) % images.length];
+
+        // Reinitialize AOS after image switch
+        AOS.refresh();
+      }
+  </script>
+
+</body>
+</html>
